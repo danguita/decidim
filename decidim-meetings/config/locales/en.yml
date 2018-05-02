@@ -109,16 +109,13 @@ en:
       admin:
         agenda:
           agenda_item:
-            add_agenda_item: Add agenda item
             add_agenda_item_child: Add agenda item child
             agenda_item: Agenda Item
             agenda_item_childs: Agenda Item Childs
-            attachment_legend: Attachments
             down: Down
             remove: Remove
             up: Up
           agenda_item_child:
-            add_agenda_item_child: Add agenda item child
             agenda_item_child: Agenda Item Child
             down: Down
             remove: Remove
@@ -134,10 +131,6 @@ en:
             agenda_items: Agenda items
             end_date: End date
             start_date: Start date
-          index:
-            agenda: Agenda
-            meeting: Meeting
-            title: Agenda Items
           new:
             create: Create
             title: New agenda
@@ -204,8 +197,6 @@ en:
             invalid: There's been a problem updating this minutes
             success: Minutes successfully updated
         models:
-          agenda_item:
-            name: Agenda Item
           meeting:
             name: Meeting
         registrations:
@@ -255,6 +246,9 @@ en:
           unfold: Unfold
         index:
           view_meeting: View meeting
+        meeting_minutes:
+          meeting_minutes: Meeting Minutes
+          related_information: Related Information
         meetings:
           no_meetings_warning: No meetings match your search criteria or there isn't any meeting scheduled.
           upcoming_meetings_warning: Currently, there are no scheduled meetings, but here you can find all the past meetings listed.
@@ -266,11 +260,9 @@ en:
           contributions: Contributions count
           going: Going
           join: Join meeting
-          meeting_minutes: Meeting Minutes
           meeting_report: Meeting report
           no_slots_available: No slots available
           organizations: Attending organizations
-          related_information: Related Information
           remaining_slots:
             one: 1 slot remaining
             other: "%{count} slots remaining"
