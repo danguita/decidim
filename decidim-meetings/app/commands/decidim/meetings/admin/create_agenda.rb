@@ -61,7 +61,7 @@ module Decidim
           end
         end
 
-        def create_nested_model(form, attributes, agenda_item_childs)
+        def create_nested_model(form, attributes, _agenda_item_childs)
           record = Decidim::Meetings::AgendaItem.find_or_create_by!(attributes)
 
           yield record if block_given?
@@ -82,6 +82,7 @@ module Decidim
             Agenda,
             @form.current_user,
             title: @form.title,
+            visible: @form.visible,
             meeting: @meeting
           )
           create_agenda_items

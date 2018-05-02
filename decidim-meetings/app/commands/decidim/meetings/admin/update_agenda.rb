@@ -82,7 +82,8 @@ module Decidim
           Decidim.traceability.update!(
             agenda,
             form.current_user,
-            title: form.title
+            title: form.title,
+            visible: form.visible
           )
         end
       end

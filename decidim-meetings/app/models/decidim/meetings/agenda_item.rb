@@ -19,6 +19,10 @@ module Decidim
         where(parent_id: nil)
       end
 
+      def parent?
+        return true unless parent_id
+      end
+
       def self.agenda_item_childs
         where.not(parent_id: nil)
       end

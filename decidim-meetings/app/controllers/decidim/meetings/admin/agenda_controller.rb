@@ -34,7 +34,7 @@ module Decidim
 
         def update
           @form = form(MeetingAgendaForm).from_params(params, meeting: meeting)
-          
+
           UpdateAgenda.call(@form, meeting, agenda) do
             on(:ok) do
               flash[:notice] = I18n.t("agenda.update.success", scope: "decidim.meetings.admin")
