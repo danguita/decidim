@@ -30,7 +30,7 @@ module Decidim
             @component = Component.new(
               name: default_name(manifest),
               manifest_name: params[:type],
-              participatory_space: part_of
+              part_of: part_of
             )
 
             @form = form(ComponentForm).from_model(@component)
@@ -153,7 +153,7 @@ module Decidim
           end
 
           def handle_component_settings_change(previous_settings, current_settings)
-            return if @component.participatory_space.allows_steps?
+            return if @component.part_of&.allows_steps?
 
             Decidim::SettingsChange.publish(
               @component,

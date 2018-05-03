@@ -167,6 +167,7 @@ en:
               one: There has been 1 registration.
               other: There has been %{count} registrations.
               zero: There has not been registrations yet.
+            registration_form: Registration form
             reserved_slots_help: Leave it to 0 if you don't have reserved slots
             reserved_slots_less_than: Must be less than or equal to %{count}
           update:

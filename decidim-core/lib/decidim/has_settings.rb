@@ -19,7 +19,7 @@ module Decidim
     end
 
     def current_settings
-      if part_of.allows_steps?
+      if part_of.try(:allows_steps?)
         active_step_settings
       else
         default_step_settings
@@ -35,7 +35,7 @@ module Decidim
     end
 
     def step_settings
-      return {} unless part_of.allows_steps?
+      return {} unless part_of.try(:allows_steps?)
 
       part_of.steps.each_with_object({}) do |step, result|
         result[step.id.to_s] = settings_schema(:step).new(self[:settings].dig("steps", step.id.to_s))
@@ -51,7 +51,7 @@ module Decidim
     private
 
     def active_step_settings
-      return unless part_of.allows_steps?
+      return unless part_of.try(:allows_steps?)
 
       active_step = part_of.active_step
       return default_step_settings unless active_step

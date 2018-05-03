@@ -4,17 +4,17 @@ module Decidim
   module Admin
     # This command gets called when a component is created from the admin panel.
     class CreateComponent < Rectify::Command
-      attr_reader :form, :manifest, :participatory_space
+      attr_reader :form, :manifest, :part_of
 
       # Public: Initializes the command.
       #
-      # manifest            - The component's manifest to create a component from.
-      # form                - The form from which the data in this component comes from.
-      # participatory_space - The participatory space that will hold this component.
-      def initialize(manifest, form, participatory_space)
+      # manifest - The component's manifest to create a component from.
+      # form     - The form from which the data in this component comes from.
+      # part_of  - The object that will hold this component.
+      def initialize(manifest, form, part_of)
         @manifest = manifest
         @form = form
-        @participatory_space = participatory_space
+        @part_of = part_of
       end
 
       # Public: Creates the Component.
@@ -39,7 +39,7 @@ module Decidim
           form.current_user,
           manifest_name: manifest.name,
           name: form.name,
-          participatory_space: participatory_space,
+          part_of: part_of,
           weight: form.weight,
           settings: form.settings,
           default_step_settings: form.default_step_settings,

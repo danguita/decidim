@@ -20,6 +20,9 @@ module Decidim
       has_many :registrations, class_name: "Decidim::Meetings::Registration", foreign_key: "decidim_meeting_id", dependent: :destroy
       has_one :minutes, class_name: "Decidim::Meetings::Minutes", foreign_key: "decidim_meeting_id", dependent: :destroy
 
+      has_many :components, as: :part_of, dependent: :destroy
+      has_one :registration_survey, as: :part_of, class_name: "Decidim::Component"
+
       component_manifest_name "meetings"
 
       validates :title, presence: true

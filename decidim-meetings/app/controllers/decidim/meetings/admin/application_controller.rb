@@ -16,7 +16,9 @@ module Decidim
         end
 
         def meeting
-          @meeting ||= meetings.find(params[:id])
+          @meeting ||= meetings.where(slug: params[:meeting_id] || params[:id]).or(
+            meetings.where(params[:meeting_id] || params[:id])
+          ).first
         end
       end
     end

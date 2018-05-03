@@ -24,6 +24,11 @@ module Decidim
           resources :copies, controller: "meeting_copies", only: [:new, :create]
           resources :minutes, except: [:show, :index]
         end
+
+        scope "meetings/:meeting_id" do
+          resources :components, except: [:index, :show]
+        end
+
         root to: "meetings#index"
       end
 

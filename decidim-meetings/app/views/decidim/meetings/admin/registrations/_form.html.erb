@@ -11,6 +11,7 @@
           <% end %>
         </ul>
       </div>
+      <%= link_to t(".registration_form"), meeting.registration_survey.present? ? edit_component_path(meeting_id: meeting.id, id: meeting.registration_survey) : new_component_path(meeting, type: :surveys), class: "button tiny button--title" %>
     </h2>
   </div>
 
