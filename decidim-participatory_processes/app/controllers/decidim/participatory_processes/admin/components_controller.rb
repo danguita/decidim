@@ -6,8 +6,13 @@ module Decidim
       # Controller that allows managing the Participatory Process' Components in the
       # admin panel.
       #
-      class ComponentsController < Decidim::Admin::ComponentsController
+      class ComponentsController < Decidim::Admin::ApplicationController
+        include Decidim::Admin::Concerns::HasComponents
         include Concerns::ParticipatoryProcessAdmin
+
+        def part_of
+          current_participatory_space
+        end
       end
     end
   end

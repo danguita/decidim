@@ -29,14 +29,14 @@
         </fieldset>
       <% end %>
 
-      <% if current_participatory_space.has_steps? %>
+      <% if part_of.is_a?(Decidim::Participable) && part_of.has_steps? %>
         <fieldset class="step-settings">
           <div class="card">
             <div class="card-divider">
               <legend><%= t ".step_settings" %></legend>
             </div>
             <div class="card-section">
-              <% current_participatory_space.steps.each do |step| %>
+              <% part_of.steps.each do |step| %>
                 <fieldset class="step-settings-<%= step.id %>">
                   <legend><%= step.position + 1 %>. <%= translated_attribute step.title %></legend>
                   <% step_settings = form.object.step_settings[step.id.to_s] %>

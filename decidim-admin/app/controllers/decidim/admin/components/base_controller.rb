@@ -33,7 +33,7 @@ module Decidim
         end
 
         def current_participatory_space
-          current_component.participatory_space
+          current_component.part_of
         end
 
         def parent_path

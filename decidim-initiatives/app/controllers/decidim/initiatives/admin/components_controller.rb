@@ -5,10 +5,15 @@ module Decidim
     module Admin
       # Controller that allows managing the Initiative's Components in the
       # admin panel.
-      class ComponentsController < Decidim::Admin::ComponentsController
+      class ComponentsController < Decidim::Admin::ApplicationController
+        include Decidim::Admin::Concerns::HasComponents
+        include NeedsInitiative
+
         layout "decidim/admin/initiative"
 
-        include NeedsInitiative
+        def part_of
+          current_participatory_space
+        end
       end
     end
   end

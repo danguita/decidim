@@ -97,8 +97,8 @@ module Decidim
     # Public: Creates the seeds for this components in order to populate the database.
     #
     # Returns nothing.
-    def seed!(participatory_space)
-      @seeds&.call(participatory_space)
+    def seed!(part_of)
+      @seeds&.call(part_of)
     end
 
     # Public: Adds configurable attributes for this component, scoped to a name. It

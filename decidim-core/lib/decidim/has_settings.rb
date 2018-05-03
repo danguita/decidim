@@ -19,7 +19,7 @@ module Decidim
     end
 
     def current_settings
-      if participatory_space.allows_steps?
+      if part_of.allows_steps?
         active_step_settings
       else
         default_step_settings
@@ -35,9 +35,9 @@ module Decidim
     end
 
     def step_settings
-      return {} unless participatory_space.allows_steps?
+      return {} unless part_of.allows_steps?
 
-      participatory_space.steps.each_with_object({}) do |step, result|
+      part_of.steps.each_with_object({}) do |step, result|
         result[step.id.to_s] = settings_schema(:step).new(self[:settings].dig("steps", step.id.to_s))
       end
     end
@@ -51,9 +51,9 @@ module Decidim
     private
 
     def active_step_settings
-      return unless participatory_space.allows_steps?
+      return unless part_of.allows_steps?
 
-      active_step = participatory_space.active_step
+      active_step = part_of.active_step
       return default_step_settings unless active_step
 
       step_settings.fetch(active_step.id.to_s)

@@ -21,7 +21,7 @@ module Decidim
                  foreign_key: "decidim_organization_id",
                  class_name: "Decidim::Organization"
 
-      has_many :components, as: :participatory_space, dependent: :destroy
+      has_many :components, as: :part_of, dependent: :destroy
       has_many :votes,
                foreign_key: "decidim_consultation_question_id",
                class_name: "Decidim::Consultations::Vote",

@@ -10,11 +10,11 @@ module Decidim
     include Traceable
     include Loggable
 
-    belongs_to :participatory_space, polymorphic: true
+    belongs_to :part_of, polymorphic: true
 
     default_scope { order(arel_table[:weight].asc, arel_table[:manifest_name].asc) }
 
-    delegate :organization, :categories, to: :participatory_space
+    delegate :organization, :categories, to: :part_of
 
     def self.log_presenter_class_for(_log)
       Decidim::AdminLog::ComponentPresenter
@@ -38,12 +38,12 @@ module Decidim
 
     # Public: The name of the engine the component is mounted to.
     def mounted_engine
-      "decidim_#{participatory_space_name}_#{manifest_name}"
+      "decidim_#{part_of_name}_#{manifest_name}"
     end
 
     # Public: The name of the admin engine the component is mounted to.
     def mounted_admin_engine
-      "decidim_admin_#{participatory_space_name}_#{manifest_name}"
+      "decidim_admin_#{part_of_name}_#{manifest_name}"
     end
 
     # Public: The hash of contextual params when the component is mounted.
@@ -51,7 +51,7 @@ module Decidim
       {
         host: organization.host,
         component_id: id,
-        "#{participatory_space.underscored_name}_slug".to_sym => participatory_space.slug
+        "#{part_of.underscored_name}_slug".to_sym => part_of.slug
       }
     end
 
@@ -62,8 +62,8 @@ module Decidim
 
     private
 
-    def participatory_space_name
-      participatory_space.underscored_name
+    def part_of_name
+      part_of.underscored_name
     end
   end
 end

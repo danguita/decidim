@@ -40,7 +40,7 @@ module Decidim
              dependent: :destroy,
              inverse_of: :initiative
 
-    has_many :components, as: :participatory_space, dependent: :destroy
+    has_many :components, as: :part_of, dependent: :destroy
 
     # This relationship exists only by compatibility reasons.
     # Initiatives are not intended to have categories.
