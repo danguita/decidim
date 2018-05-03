@@ -80,7 +80,7 @@ Decidim.register_component(:proposals) do |component|
     exports.collection do |component_instance|
       Decidim::Proposals::Proposal
         .where(component: component_instance)
-        .includes(:category, component: { participatory_space: :organization })
+        .includes(:category, component: { part_of: :organization })
     end
 
     exports.serializer Decidim::Proposals::ProposalSerializer
@@ -96,29 +96,29 @@ Decidim.register_component(:proposals) do |component|
     exports.serializer Decidim::Comments::CommentSerializer
   end
 
-  component.seeds do |participatory_space|
-    step_settings = if participatory_space.allows_steps?
-                      { participatory_space.active_step.id => { votes_enabled: true, votes_blocked: false, creation_enabled: true } }
+  component.seeds do |part_of|
+    step_settings = if part_of.allows_steps?
+                      { part_of.active_step.id => { votes_enabled: true, votes_blocked: false, creation_enabled: true } }
                     else
                       {}
                     end
 
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :proposals).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :proposals).i18n_name,
       manifest_name: :proposals,
       published_at: Time.current,
-      participatory_space: participatory_space,
+      part_of: part_of,
       settings: {
         vote_limit: 0
       },
       step_settings: step_settings
     )
 
-    if participatory_space.scope
-      scopes = participatory_space.scope.descendants
-      global = participatory_space.scope
+    if part_of.scope
+      scopes = part_of.scope.descendants
+      global = part_of.scope
     else
-      scopes = participatory_space.organization.scopes
+      scopes = part_of.organization.scopes
       global = nil
     end
 
@@ -137,7 +137,7 @@ Decidim.register_component(:proposals) do |component|
 
       proposal = Decidim::Proposals::Proposal.create!(
         component: component,
-        category: participatory_space.categories.sample,
+        category: part_of.categories.sample,
         scope: Faker::Boolean.boolean(0.5) ? global : scopes.sample,
         title: Faker::Lorem.sentence(2),
         body: Faker::Lorem.paragraphs(2).join("\n"),
@@ -150,8 +150,8 @@ Decidim.register_component(:proposals) do |component|
       )
 
       (n % 3).times do |m|
-        email = "vote-author-#{participatory_space.underscored_name}-#{participatory_space.id}-#{n}-#{m}@example.org"
-        name = "#{Faker::Name.name} #{participatory_space.id} #{n} #{m}"
+        email = "vote-author-#{part_of.underscored_name}-#{part_of.id}-#{n}-#{m}@example.org"
+        name = "#{Faker::Name.name} #{part_of.id} #{n} #{m}"
 
         author = Decidim::User.find_or_initialize_by(email: email)
         author.update!(
@@ -171,8 +171,8 @@ Decidim.register_component(:proposals) do |component|
 
       unless proposal.answered? && proposal.rejected?
         (n * 2).times do |index|
-          email = "endorsement-author-#{participatory_space.underscored_name}-#{participatory_space.id}-#{n}-endr#{index}@example.org"
-          name = "#{Faker::Name.name} #{participatory_space.id} #{n} endr#{index}"
+          email = "endorsement-author-#{part_of.underscored_name}-#{part_of.id}-#{n}-endr#{index}@example.org"
+          name = "#{Faker::Name.name} #{part_of.id} #{n} endr#{index}"
 
           author = Decidim::User.find_or_initialize_by(email: email)
           author.update!(

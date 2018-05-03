@@ -27,12 +27,12 @@ Decidim.register_component(:sortitions) do |component|
     Decidim::Sortitions::FilteredSortitions.for(components, start_at, end_at).count
   end
 
-  component.seeds do |participatory_space|
+  component.seeds do |part_of|
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :sortitions).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :sortitions).i18n_name,
       manifest_name: :sortitions,
       published_at: Time.current,
-      participatory_space: participatory_space
+      part_of: part_of
     )
   end
 end

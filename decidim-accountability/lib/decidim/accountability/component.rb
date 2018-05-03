@@ -39,23 +39,23 @@ Decidim.register_component(:accountability) do |component|
     exports.collection do |component_instance|
       Decidim::Accountability::Result
         .where(component: component_instance)
-        .includes(:category, component: { participatory_space: :organization })
+        .includes(:category, component: { part_of: :organization })
     end
 
     exports.serializer Decidim::Accountability::ResultSerializer
   end
 
-  component.seeds do |participatory_space|
+  component.seeds do |part_of|
     admin_user = Decidim::User.find_by(
-      organization: participatory_space.organization,
+      organization: part_of.organization,
       email: "admin@example.org"
     )
 
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :accountability).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :accountability).i18n_name,
       manifest_name: :accountability,
       published_at: Time.current,
-      participatory_space: participatory_space,
+      part_of: part_of,
       settings: {
         intro: Decidim::Faker::Localized.wrapped("<p>", "</p>") { Decidim::Faker::Localized.sentence(4) },
         categories_label: Decidim::Faker::Localized.word,
@@ -74,7 +74,7 @@ Decidim.register_component(:accountability) do |component|
     end
 
     3.times do
-      parent_category = participatory_space.categories.sample
+      parent_category = part_of.categories.sample
       categories = [parent_category]
 
       2.times do
@@ -84,7 +84,7 @@ Decidim.register_component(:accountability) do |component|
             Decidim::Faker::Localized.paragraph(3)
           end,
           parent: parent_category,
-          participatory_space: participatory_space
+          participatory_space: part_of
         )
       end
 
@@ -93,7 +93,7 @@ Decidim.register_component(:accountability) do |component|
           Decidim::Accountability::Result,
           admin_user,
           component: component,
-          scope: participatory_space.organization.scopes.sample,
+          scope: part_of.organization.scopes.sample,
           category: category,
           title: Decidim::Faker::Localized.sentence(2),
           description: Decidim::Faker::Localized.wrapped("<p>", "</p>") do

@@ -50,19 +50,19 @@ Decidim.register_component(:budgets) do |component|
     settings.attribute :announcement, type: :text, translated: true, editor: true
   end
 
-  component.seeds do |participatory_space|
+  component.seeds do |part_of|
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :budgets).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :budgets).i18n_name,
       manifest_name: :budgets,
       published_at: Time.current,
-      participatory_space: participatory_space
+      part_of: part_of
     )
 
     2.times do
       project = Decidim::Budgets::Project.create!(
         component: component,
-        scope: participatory_space.organization.scopes.sample,
-        category: participatory_space.categories.sample,
+        scope: part_of.organization.scopes.sample,
+        category: part_of.categories.sample,
         title: Decidim::Faker::Localized.sentence(2),
         description: Decidim::Faker::Localized.wrapped("<p>", "</p>") do
           Decidim::Faker::Localized.paragraph(3)

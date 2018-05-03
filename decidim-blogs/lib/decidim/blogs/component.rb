@@ -29,18 +29,18 @@ Decidim.register_component(:blogs) do |component|
     resource.model_class_name = "Decidim::Blogs::Post"
   end
 
-  component.seeds do |participatory_space|
-    step_settings = if participatory_space.allows_steps?
-                      { participatory_space.active_step.id => { comments_enabled: true, comments_blocked: false } }
+  component.seeds do |part_of|
+    step_settings = if part_of.allows_steps?
+                      { part_of.active_step.id => { comments_enabled: true, comments_blocked: false } }
                     else
                       {}
                     end
 
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :blogs).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :blogs).i18n_name,
       manifest_name: :blogs,
       published_at: Time.current,
-      participatory_space: participatory_space,
+      part_of: part_of,
       settings: {
         vote_limit: 0
       },

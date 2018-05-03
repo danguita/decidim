@@ -62,7 +62,7 @@ Decidim.register_participatory_space(:initiatives) do |participatory_space|
           name: Decidim::Components::Namer.new(initiative.organization.available_locales, component_name).i18n_name,
           manifest_name: component_name,
           published_at: Time.current,
-          participatory_space: initiative
+          part_of: initiative
         )
 
         next unless component_name == :pages

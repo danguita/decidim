@@ -39,19 +39,19 @@ Decidim.register_component(:meetings) do |component|
     settings.attribute :comments_blocked, type: :boolean, default: false
   end
 
-  component.seeds do |participatory_space|
+  component.seeds do |part_of|
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :meetings).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :meetings).i18n_name,
       published_at: Time.current,
       manifest_name: :meetings,
-      participatory_space: participatory_space
+      part_of: part_of
     )
 
-    if participatory_space.scope
-      scopes = participatory_space.scope.descendants
-      global = participatory_space.scope
+    if part_of.scope
+      scopes = part_of.scope.descendants
+      global = part_of.scope
     else
-      scopes = participatory_space.organization.scopes
+      scopes = part_of.organization.scopes
       global = nil
     end
 
@@ -59,7 +59,7 @@ Decidim.register_component(:meetings) do |component|
       meeting = Decidim::Meetings::Meeting.create!(
         component: component,
         scope: Faker::Boolean.boolean(0.5) ? global : scopes.sample,
-        category: participatory_space.categories.sample,
+        category: part_of.categories.sample,
         title: Decidim::Faker::Localized.sentence(2),
         description: Decidim::Faker::Localized.wrapped("<p>", "</p>") do
           Decidim::Faker::Localized.paragraph(3)

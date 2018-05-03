@@ -44,12 +44,12 @@ Decidim.register_component(:pages) do |component|
     resource.model_class_name = "Decidim::Pages::Page"
   end
 
-  component.seeds do |participatory_space|
+  component.seeds do |part_of|
     component = Decidim::Component.create!(
-      name: Decidim::Components::Namer.new(participatory_space.organization.available_locales, :pages).i18n_name,
+      name: Decidim::Components::Namer.new(part_of.organization.available_locales, :pages).i18n_name,
       manifest_name: :pages,
       published_at: Time.current,
-      participatory_space: participatory_space
+      part_of: part_of
     )
 
     Decidim::Pages::Page.create!(
