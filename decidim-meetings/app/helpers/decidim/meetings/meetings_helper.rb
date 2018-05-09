@@ -21,7 +21,29 @@ module Decidim
         CGI.unescapeHTML html_truncate(description, max_length: max_length, tail: tail)
       end
 
-      
+      # Public: The css class applied based on the meeting type to
+      #         the css class.
+      #
+      # type - The String type of the meeting.
+      #
+      # Returns a String.
+      def meeting_type_badge_css_class(type)
+        case type
+        when "private"
+          "alert"
+        when "transparent"
+          "secondary"
+        end
+      end
+
+      # Public: This method is used to calc the start and end time
+      #         of each agenda item passed
+      #
+      # agenda_items - an Active record of agenda items
+      # meeting - the meeting of the agenda, to know the start and end time
+      # start_time_parent - used to pass the start time of parent agenda item
+      #
+      # Returns an Array.
       def calc_start_and_end_time_of_agenda_items(agenda_items, meeting, start_time_parent = nil)
         array = []
 
@@ -51,6 +73,13 @@ module Decidim
         array
       end
 
+      # Public: This method is used to build the html for show start
+      # and end time of each agenda item
+      #
+      # agenda_item_id - an id of agenda item
+      # agenda_items_times - is a hash with the two times
+      #
+      # Returns an HMTL.
       def display_duration_agenda_items(agenda_item_id, index, agenda_items_times)
         html = ""
         if agenda_item_id == agenda_items_times[index][:agenda_item_id]
