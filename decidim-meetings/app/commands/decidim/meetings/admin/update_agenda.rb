@@ -6,9 +6,8 @@ module Decidim
       # This command is executed when the user creates a Meeting from the admin
       # panel.
       class UpdateAgenda < Rectify::Command
-        def initialize(form, meeting, agenda)
+        def initialize(form, agenda)
           @form = form
-          @meeting = meeting
           @agenda = agenda
         end
 
@@ -63,7 +62,6 @@ module Decidim
 
         def update_nested_model(form, attributes, agenda_item_childs)
           record = agenda_item_childs.find_by(id: form.id) || agenda_item_childs.build(attributes)
-          # record = Decidim::Meetings::AgendaItem.find_or_create_by!(attributes)
 
           yield record if block_given?
 

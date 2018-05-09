@@ -21,7 +21,8 @@ module Decidim
         CGI.unescapeHTML html_truncate(description, max_length: max_length, tail: tail)
       end
 
-      def set_agenda_items_start_end_times(agenda_items, meeting, start_time_parent = nil)
+      
+      def calc_start_and_end_time_of_agenda_items(agenda_items, meeting, start_time_parent = nil)
         array = []
 
         agenda_items.each_with_index do |agenda_item, index|

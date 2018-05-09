@@ -20,6 +20,7 @@ module Decidim
 
           transaction do
             create_agenda!
+            create_agenda_items
           end
 
           broadcast(:ok, @agenda)
@@ -85,7 +86,6 @@ module Decidim
             visible: @form.visible,
             meeting: @meeting
           )
-          create_agenda_items
         end
       end
     end

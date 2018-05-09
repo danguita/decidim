@@ -2,8 +2,8 @@
 
 module Decidim
   module Meetings
-    # The data store for a Meeting in the Decidim::Meetings component. It stores a
-    # title, description and any other useful information to render a custom meeting.
+    # The data store for a AgendaItem in the Decidim::Meetings component. It stores a
+    # title, description and duration to render inside meeting.
     class AgendaItem < Meetings::ApplicationRecord
       include Decidim::Traceable
       include Decidim::Loggable

@@ -87,7 +87,7 @@ module Decidim
       end
 
       def meeting_duration
-        ((end_time - start_time) * 24 * 60).to_i
+        @meeting_duration ||= ((end_time - start_time) * 24 * 60).to_i
       end
     end
   end
