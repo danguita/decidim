@@ -26,9 +26,11 @@ end
 **Added**:
 
 - **decidim-meetings**: Add Agenda and Agenda Item entities to manage meeting agenda. [\#3305](https://github.com/decidim/decidim/pull/3305)
+- **decidim-assemblies**: Add members to assemblies. [\#3008](https://github.com/decidim/decidim/pull/3008)
 - **decidim-meetings**: Add organizer to meeting and meeting types [\#3136](https://github.com/decidim/decidim/pull/3136)
 - **decidim-meetings**: Add Minutes entity to manage Minutes. [\#3213](https://github.com/decidim/decidim/pull/3213)
 - **decidim-admin**: Links to participatory space index & show pages from the admin dashboard. [\#3325](https://github.com/decidim/decidim/pull/3325)
+- **decidim-admin**: Add autocomplete field with customizable url to fetch results. [\#3301](https://github.com/decidim/decidim/pull/3301)
 
 **Changed**:
 
@@ -57,6 +59,7 @@ end
 - **decidim-sortitions**: Drop support for abilities in favor of the new Permissions system [\#3029](https://github.com/decidim/decidim/pull/3029)
 - **decidim-meetings**: Update card layout [\#3338](https://github.com/decidim/decidim/pull/3338)
 - **decidim-proposals**: Update card layout [\#3338](https://github.com/decidim/decidim/pull/3338)
+- **decidim-debates**: Update card layout [\#3371](https://github.com/decidim/decidim/pull/3371)
 
 **Fixed**:
 
