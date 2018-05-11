@@ -3,8 +3,8 @@
 require "spec_helper"
 
 module Decidim::Meetings
-  describe Admin::MeetingAgendaItemForm do
-    subject(:form) { described_class.from_params(attributes).with_context(context) }
+  describe Admin::MeetingAgendaItemsForm do
+    subject(:form) { described_class.from_params(attributes).with_context(current_organization: organization) }
 
     let(:organization) { create(:organization, available_locales: [:en]) }
 
@@ -12,13 +12,9 @@ module Decidim::Meetings
     let(:current_component) { create :component, participatory_space: participatory_process, manifest_name: "meetings" }
     let(:meeting) { create :meeting, component: current_component }
 
-    let(:title) do
-      Decidim::Faker::Localized.sentence(3)
-    end
+    let(:title) { Decidim::Faker::Localized.sentence(3) }
     let(:duration) { rand(5..100) }
-    let(:description) do
-      description: Decidim::Faker::Localized.sentence(5)
-    end
+    let(:description) { Decidim::Faker::Localized.sentence(5) }
     let(:position) { 0 }
     let(:parent_id) { nil }
     let(:deleted) { false }
@@ -43,8 +39,12 @@ module Decidim::Meetings
     let(:attributes) do
       {
         title: title,
-        visible: visible,
-        agenda_items: agenda_items
+        description: description,
+        duration: duration,
+        parent_id: parent_id,
+        deleted: deleted,
+        position: position,
+        agenda_item_childs: agenda_item_childs
       }
     end
 
@@ -58,17 +58,14 @@ module Decidim::Meetings
       it { is_expected.not_to be_valid }
     end
 
-    describe "when a agenda_item is not valid" do
-      let(:agenda_items) do
-        [
-          {
-            title: nil,
-            description: Decidim::Faker::Localized.sentence(5),
-            duration: 12,
-            position: 0
-          },
-        ]
-      end
+    describe "when position is not greater than 0" do
+      let(:position) { -2 }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    describe "when duration is not greater than 0" do
+      let(:duration) { -2 }
 
       it { is_expected.not_to be_valid }
     end
